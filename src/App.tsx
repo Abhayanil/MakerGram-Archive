@@ -41,11 +41,7 @@ function App() {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    root.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
   }, [theme]);
 
@@ -58,7 +54,7 @@ function App() {
   const [statuses, setStatuses] = useState<Status[]>([]);
   const [types, setTypes] = useState<Type[]>([]);
   const [allMakers, setAllMakers] = useState<Maker[]>([]);
-  const [statusFilter, setStatusFilter] = useState<string[]>([]);
+  const [statusFilter, setStatusFilter] = useState<string[]>(['Active', 'Hibernation', 'Graveyard', 'Completed']);
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [isLoadingLookupData, setIsLoadingLookupData] = useState(true);
@@ -156,6 +152,8 @@ function App() {
         return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'Graveyard':
         return 'bg-red-100 text-red-800 border-red-200';
+      case 'Completed':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
@@ -169,6 +167,8 @@ function App() {
         return '🟡';
       case 'Graveyard':
         return '🔴';
+      case 'Completed':
+        return '🔵';
       default:
         return '⚪';
     }
@@ -440,12 +440,16 @@ function App() {
         </div>
 
         {/* Kanban Board Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {statuses.map((status) => {
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {statuses.sort((a, b) => {
+            const order = ['Active', 'Hibernation', 'Completed', 'Graveyard'];
+            return order.indexOf(a.name) - order.indexOf(b.name);
+          }).map((status) => {
             const statusProjects = filteredProjects.filter(project => project.status.name === status.name);
             const statusConfig = {
               'Active': { icon: '🟢', color: 'green', bgColor: 'bg-green-50', borderColor: 'border-green-200' },
               'Hibernation': { icon: '🟡', color: 'yellow', bgColor: 'bg-yellow-50', borderColor: 'border-yellow-200' },
+              'Completed': { icon: '🔵', color: 'blue', bgColor: 'bg-blue-50', borderColor: 'border-blue-200' },
               'Graveyard': { icon: '🔴', color: 'red', bgColor: 'bg-red-50', borderColor: 'border-red-200' }
             }[status.name];
 
