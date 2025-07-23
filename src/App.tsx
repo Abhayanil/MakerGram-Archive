@@ -355,24 +355,12 @@ function App() {
         {/* Add New Project Button */}
         <div className="mb-6">
           <button
-            onClick={() => {
-              setEditingProject(null); // Clear any editing state
-              setCurrentProjectForm({
-                project_title: '',
-                status_id: statuses[0]?.id || 0,
-                type_id: types[0]?.id || 0,
-                timeframe: '',
-                description: '',
-                makers: [],
-                link: '',
-              });
-              setShowAddForm(true);
-            }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
-            disabled={isLoadingLookupData}
+            onClick={() => { /* Functionality temporarily disabled */ }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md opacity-50 cursor-not-allowed"
+            disabled={true}
           >
             <Plus className="h-5 w-5" />
-            Add New Project
+            Add New Project (Disabled)
           </button>
         </div>
 
@@ -487,7 +475,7 @@ function App() {
                               className="flex-shrink-0 p-1.5 text-gray-400 hover:text-blue-600 transition-colors rounded-md hover:bg-gray-50"
                               aria-label="Edit project"
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
                             </button>
                             {project.link && (
                               <a
@@ -566,7 +554,8 @@ function App() {
       </div>
 
       {/* Add Project Modal */}
-      {showAddForm && (
+      {/* Add Project Modal - Temporarily Disabled */}
+      {false && showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 dark:border-gray-700">
